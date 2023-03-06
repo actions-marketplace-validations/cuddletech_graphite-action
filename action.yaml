@@ -1,6 +1,7 @@
 name: 'Graphite'
-
+author: 'Ben Rockwood <benr@cuddletech.com>'
 description: 'Emit a metric to a Graphite Server'
+
 inputs:
   graphite_url:
     description: 'Fully qualified URL for your Graphite server'
