@@ -53,7 +53,7 @@ runs:
           \"name\": \"${{ inputs.metric_name }}\",
           \"interval\": ${{ inputs.metric_interval }},
           \"value\": ${{ inputs.metric_value }},
-          \"time\": ${{ steps.time.outputs.time }},
+          \"time\": ${{ steps.time.outputs.time }}
         }]"
       shell: bash
 
