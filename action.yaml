@@ -40,7 +40,7 @@ runs:
     - id: time
       run: |
         time="${{ inputs.metric_time }}"
-        if [[ ${{ inputs.metric_time }} != "" ]]; then
+        if [[ $time == "" ]]; then
           time=$(($(date +%s) / 10 * 10)) 
         fi 
         echo "time=$(echo $time)" >> $GITHUB_OUTPUT
