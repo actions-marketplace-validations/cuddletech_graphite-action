@@ -1,0 +1,53 @@
+name: 'Graphite'
+description: 'Emit a metric to a Graphite Server'
+inputs:
+  graphite_url:
+    description: 'Fully qualified URL for your Graphite server'
+    required: true
+    default: 'https://graphite-prod-10-prod-us-central-0.grafana.net/graphite/metrics'
+  graphite_key:
+    description: "Bearer Token/API key for your graphite server"
+    required: true
+    default: "instance_id:api_key"
+  metric_name:
+    description: 'The complete Graphite metric name'
+    reqruied: true
+    default: 'test.metric'
+  metric_value:
+    description: 'Value to send'
+    required: true
+    default: '123'
+  metric_interval:
+    description: 'Metric Interval'
+    required: false
+    default: 10     
+  metric_time: 
+    description: 'Metric Timestamp (defaults to now)'
+    required: false
+
+      
+runs:
+  using: "composite"
+  steps:
+    - run: echo "Metric String: ${{inputs.metric_time}} ${{inputs.metric_name}} ${{inputs.metric_value}}"
+      shell: bash
+    - id: time
+      run: |
+        time="${{ inputs.metric_time }}"
+        if [[ ${{ inputs.metric_time }} != "" ]]; then
+          time=$(($(date +%s) / 10 * 10)) 
+        fi 
+        echo "time=$(echo $time)" >> $GITHUB_OUTPUT
+      shell: bash
+    - run: |
+      curl -X POST -H "Authorization: Bearer ${{ inputs.graphite_key }}" \
+       -H "Content-Type: application/json" \
+       "${{ inputs.graphite_url }}" \
+       -d "[{
+        "name": "${{ inputs.metric_name }}",
+        "interval": ${{ inputs.metric_interval }},
+        "value": ${{ inputs.metric_value }},
+        "time": ${{ steps.time.outputs.time }}
+      }]"
+      shell: bash
+
