@@ -1,4 +1,4 @@
-name: 'Graphite'
+name: 'Graphite Metric Emitter'
 author: 'Ben Rockwood <benr@cuddletech.com>'
 description: 'Emit a metric to a Graphite Server'
 
