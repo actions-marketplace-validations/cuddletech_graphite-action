@@ -1,6 +1,9 @@
 name: 'Graphite Metric Emitter'
 author: 'Ben Rockwood <benr@cuddletech.com>'
 description: 'Emit a metric to a Graphite Server'
+branding:
+  icon: 'activity'
+  color: 'purple'
 
 inputs:
   graphite_url:
