@@ -50,7 +50,7 @@ runs:
         -H "Content-Type: application/json" \
         "${{ inputs.graphite_url }}" \
         -d "[{
-          \"name\"": \"${{ inputs.metric_name }}\",
+          \"name\": \"${{ inputs.metric_name }}\",
           \"interval\": ${{ inputs.metric_interval }},
           \"value\": ${{ inputs.metric_value }},
           \"time\": ${{ steps.time.outputs.time }},
