@@ -41,8 +41,7 @@ runs:
       run: |
         time="${{ inputs.metric_time }}"
         if [[ $time == "" ]]; then
-          time_now=$(($(date +%s) / 10 * 10)) 
-          time=$((time_now - 10))
+          time=$(date +%s)
         fi 
         echo "time=$(echo $time)" >> $GITHUB_OUTPUT
       shell: bash
@@ -51,10 +50,10 @@ runs:
         -H "Content-Type: application/json" \
         "${{ inputs.graphite_url }}" \
         -d "[{
-          "name": "${{ inputs.metric_name }}",
-          "interval": ${{ inputs.metric_interval }},
-          "value": ${{ inputs.metric_value }},
-          "time": ${{ steps.time.outputs.time }},
+          \"name\"": \"${{ inputs.metric_name }}\",
+          \"interval\": ${{ inputs.metric_interval }},
+          \"value\": ${{ inputs.metric_value }},
+          \"time\": ${{ steps.time.outputs.time }},
         }]"
       shell: bash
 
